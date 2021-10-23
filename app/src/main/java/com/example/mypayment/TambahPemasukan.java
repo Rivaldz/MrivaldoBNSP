@@ -2,32 +2,54 @@ package com.example.mypayment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mypayment.javavlass.DatabaseHelper;
 import com.example.mypayment.javavlass.DatePickerFrag;
 
 public class TambahPemasukan extends AppCompatActivity {
 
+    private static final String MY_PREFS_NAME = "MyPrefsFile" ;
     ImageView calender;
     TextView tanggalView;
+    EditText nominal, keterangan;
+    Button button;
+
+    DatabaseHelper dbhelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_pemasukan);
 
+        dbhelper = new DatabaseHelper(this);
+
         calender = findViewById(R.id.imageCalender);
         tanggalView = findViewById(R.id.tanggalView);
+        nominal = findViewById(R.id.editTextNominal);
+        keterangan = findViewById(R.id.keteranganEditText);
+        button = findViewById(R.id.buttonPemasukan);
 
         calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tampilTanggal();
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveSQLite();
             }
         });
 
@@ -48,7 +70,28 @@ public class TambahPemasukan extends AppCompatActivity {
         });
     }
 
-    private void saveSQLite(){
 
+    private void saveSQLite(){
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String prefUsername = prefs.getString("username", "No name defined"); //"No name defined" is the default value.
+
+        String user = prefUsername;
+        String tanggal = tanggalView.getText().toString();
+        String nominalSt = nominal.getText().toString();
+        String keteranganSt = keterangan.getText().toString();
+
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.clm_user, user);
+//        values.put(DatabaseHelper.clm_tang, user);
+        values.put(DatabaseHelper.clm_nominal, nominalSt);
+        values.put(DatabaseHelper.clm_keterangan, keteranganSt);
+
+        if (tanggal.equals("") || nominalSt.equals("") || keteranganSt.equals("")) {
+            Toast.makeText(TambahPemasukan.this, "Data Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+        } else {
+            dbhelper.insertData(values);
+            Toast.makeText(TambahPemasukan.this, "Data Berhasil Tersimpan", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }
