@@ -12,9 +12,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String clm_id = "User_id";
     public static final String clm_user = "User";
-    public static final String clm_status = "status";
+    public static final String clm_status = "Status";
     public static final String clm_nominal = "Nominal";
     public static final String clm_keterangan = "Keterangan";
+    public static final String clm_tanggal = "Tanggal";
     private SQLiteDatabase db;
 
     public DatabaseHelper(Context context) {
@@ -26,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + table_name + "(" + clm_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + clm_user+ " TEXT, " + clm_status+ " TEXT, " + clm_nominal + " TEXT, "
-                + clm_keterangan + " TEXT)";
+                + clm_keterangan + " TEXT, " + clm_tanggal + " TEXT)";
         db.execSQL(query);
     }
 
