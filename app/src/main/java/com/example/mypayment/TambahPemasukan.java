@@ -64,7 +64,7 @@ public class TambahPemasukan extends AppCompatActivity {
                 String tahun = ""+datePicker.getYear();
                 String bulan = ""+(datePicker.getMonth()+1);
                 String hari = ""+datePicker.getDayOfMonth();
-                String text = hari+" - "+bulan+" - "+tahun;
+                String text = hari+"-"+bulan+"-"+tahun;
                 tanggalView.setText(text);
             }
         });

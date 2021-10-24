@@ -6,11 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String database_name = "DB_MyPayment";
     public static final String table_name = "CashFlow";
 
-    public static final String clm_id = "User_id";
+
+    public static final String clm_id = "_id";
     public static final String clm_user = "User";
     public static final String clm_status = "Status";
     public static final String clm_nominal = "Nominal";
@@ -61,5 +65,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Delete Data
     public void deleteData(long id){
         db.delete(table_name, clm_id + "=" + id, null);
+    }
+
+    public ArrayList<HashMap<String, String>> GetDetailFlow(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<HashMap<String, String>> userList = new ArrayList<>();
+        String query = "SELECT * FROM " + table_name;
+        Cursor cursor = db.rawQuery(query,null);
+        while (cursor.moveToNext()){
+            HashMap<String,String> user = new HashMap<>();
+            user.put("_id",cursor.getString(cursor.getColumnIndex(clm_id)));
+            user.put("User",cursor.getString(cursor.getColumnIndex(clm_user)));
+            user.put("Status",cursor.getString(cursor.getColumnIndex(clm_status)));
+            user.put("Nominal",cursor.getString(cursor.getColumnIndex(clm_nominal)));
+            user.put("Keterangan",cursor.getString(cursor.getColumnIndex(clm_keterangan)));
+            user.put("Tanggal",cursor.getString(cursor.getColumnIndex(clm_tanggal)));
+            userList.add(user);
+        }
+        return  userList;
     }
 }
