@@ -84,4 +84,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return  userList;
     }
+    public ArrayList<CourseModal> readCourses() {
+
+        // on below line we are creating a
+        // database for reading our database.
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // on below line we are creating a cursor with query to read data from database.
+        Cursor cursorCourses = db.rawQuery("SELECT * FROM " + table_name, null);
+
+        // on below line we are creating a new array list.
+        ArrayList<CourseModal> courseModalArrayList = new ArrayList<>();
+
+        // moving our cursor to first position.
+        if (cursorCourses.moveToFirst()) {
+            do {
+                // on below line we are adding the data from cursor to our array list.
+                courseModalArrayList.add(new CourseModal(cursorCourses.getInt(2),
+                        cursorCourses.getString(3),
+                        cursorCourses.getString(4),
+                        cursorCourses.getString(5)));
+            } while (cursorCourses.moveToNext());
+            // moving our cursor to next.
+        }
+        // at last closing our cursor
+        // and returning our array list.
+        cursorCourses.close();
+        return courseModalArrayList;
+    }
 }

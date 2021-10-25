@@ -64,7 +64,7 @@ public class TambahPengeluaran extends AppCompatActivity {
                 String tahun = ""+datePicker.getYear();
                 String bulan = ""+(datePicker.getMonth()+1);
                 String hari = ""+datePicker.getDayOfMonth();
-                String text = hari+" - "+bulan+" - "+tahun;
+                String text = hari+"-"+bulan+"-"+tahun;
                 tanggalView.setText(text);
             }
         });
@@ -75,7 +75,7 @@ public class TambahPengeluaran extends AppCompatActivity {
 
         String user = prefUsername;
         int statusSt = 1;
-        String nominalSt = nominal.getText().toString();
+        String nominalSt =  "[+] Rp " + nominal.getText().toString();
         String keteranganSt = keterangan.getText().toString();
         String tanggal = tanggalView.getText().toString();
 

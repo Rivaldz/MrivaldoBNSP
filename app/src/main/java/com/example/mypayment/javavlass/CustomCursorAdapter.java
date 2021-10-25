@@ -1,53 +1,67 @@
 package com.example.mypayment.javavlass;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.database.Cursor;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mypayment.R;
 
-public class CustomCursorAdapter extends CursorAdapter {
-    private LayoutInflater layoutInflater;
+import org.w3c.dom.Text;
 
-    public CustomCursorAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
-        layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+import java.util.ArrayList;
+
+public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapter.ViewHolder>{
+    private ArrayList<CourseModal> courseModalArrayList;
+    private Context context;
+
+    public CustomCursorAdapter(ArrayList<CourseModal> courseModalArrayList, Context context) {
+        this.courseModalArrayList = courseModalArrayList;
+        this.context = context;
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-
-
+    @NonNull
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        View v = layoutInflater.inflate(R.layout.row_data, viewGroup, false);
-        MyHolder holder = new MyHolder();
-        holder.nominal = (TextView)v.findViewById(R.id.nominal_row_data);
-        holder.deskripsi = (TextView)v.findViewById(R.id.deskripsi_row_data);
-        holder.tanggal = (TextView)v.findViewById(R.id.tanggal_row_data);
-//        holder.ListJurusan = (TextView)v.findViewById(R.id.ListJurusan);
-        v.setTag(holder);
-        return v;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_data, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        MyHolder holder = (MyHolder)view.getTag();
-
-        holder.nominal.setText(cursor.getString(cursor.getColumnIndex(DatabaseHelper.clm_nominal)));
-        holder.deskripsi.setText(cursor.getString(cursor.getColumnIndex(DatabaseHelper.clm_keterangan)));
-        holder.tanggal.setText(cursor.getString(cursor.getColumnIndex(DatabaseHelper.clm_tanggal)));
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        CourseModal modal = courseModalArrayList.get(position);
+        if (modal.getStatus() == 0){
+            holder.imageArrow.setImageResource(R.drawable.ic_baseline_arrow_back_24);
+        }else {
+            holder.imageArrow.setImageResource(R.drawable.ic_baseline_arrow_forward_24);
+        }
+        holder.nominal.setText(modal.getNominal());
+        holder.keterangan.setText(modal.getKeterangan());
+        holder.tanggal.setText(modal.getTanggal());
 
     }
 
-    class MyHolder{
-        TextView nominal;
-        TextView deskripsi;
-        TextView tanggal;
+    @Override
+    public int getItemCount() {
+        return courseModalArrayList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView nominal, keterangan, tanggal;
+        private ImageView imageArrow;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nominal = itemView.findViewById(R.id.nominal_row_data);
+            keterangan = itemView.findViewById(R.id.deskripsi_row_data);
+            tanggal = itemView.findViewById(R.id.tanggal_row_data);
+            imageArrow = itemView.findViewById(R.id.imageView_row_data);
+
+
+        }
     }
 }

@@ -77,7 +77,7 @@ public class TambahPemasukan extends AppCompatActivity {
 
         String user = prefUsername;
         int statusSt = 0 ;
-        String nominalSt = nominal.getText().toString();
+        String nominalSt = "[+] Rp" + nominal.getText().toString();
         String keteranganSt = keterangan.getText().toString();
         String tanggal = tanggalView.getText().toString();
 
