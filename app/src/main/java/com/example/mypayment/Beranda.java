@@ -42,12 +42,12 @@ public class Beranda extends AppCompatActivity implements View.OnClickListener{
                 break;
 
             case R.id.imageButtonCashFlow:
-
                 startActivity(new Intent(Beranda.this, DetailCashFlow.class));
                 Toast.makeText(getApplicationContext(),"Detail Cash Flow",Toast.LENGTH_SHORT).show();
-
                 break;
+
             case R.id.imageButtonSetting:
+                startActivity(new Intent(Beranda.this, Pengaturan.class));
                 Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
                 break;
         }
