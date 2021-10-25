@@ -72,17 +72,18 @@ public class TambahPengeluaran extends AppCompatActivity {
     private void saveSQLite(){
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         String prefUsername = prefs.getString("username", "No name defined"); //"No name defined" is the default value.
+        int pengeluaran = prefs.getInt("countPengeluaran",0);
 
         String user = prefUsername;
-        int statusSt = 1;
-        String nominalSt =  "[+] Rp " + nominal.getText().toString();
+        String statusSt = "pengeluaran";
+        String nominalSt =  nominal.getText().toString();
         String keteranganSt = keterangan.getText().toString();
         String tanggal = tanggalView.getText().toString();
 
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.clm_user, user);
         values.put(DatabaseHelper.clm_status, statusSt);
-        values.put(DatabaseHelper.clm_nominal, nominalSt);
+        values.put(DatabaseHelper.clm_nominal,Integer.valueOf(nominalSt));
         values.put(DatabaseHelper.clm_keterangan, keteranganSt);
         values.put(DatabaseHelper.clm_tanggal, tanggal);
 
@@ -90,6 +91,9 @@ public class TambahPengeluaran extends AppCompatActivity {
             Toast.makeText(TambahPengeluaran.this, "Data Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
         } else {
             dbhelper.insertData(values);
+            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putInt("countPengeluaran",Integer.parseInt(nominal.getText().toString()) + pengeluaran);
+            editor.apply();
             Toast.makeText(TambahPengeluaran.this, "Data Berhasil Tersimpan", Toast.LENGTH_SHORT).show();
             finish();
         }

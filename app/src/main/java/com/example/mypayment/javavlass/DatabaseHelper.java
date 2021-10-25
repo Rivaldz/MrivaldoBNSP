@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + table_name + "(" + clm_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + clm_user+ " TEXT, " + clm_status+ " INTEGER, " + clm_nominal + " TEXT, "
+                + clm_user+ " TEXT, " + clm_status+ " TEXT, " + clm_nominal + " INTEGER, "
                 + clm_keterangan + " TEXT, " + clm_tanggal + " TEXT)";
         db.execSQL(query);
     }
@@ -44,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor allData(){
         Cursor cur = db.rawQuery("SELECT * FROM " + table_name , null);
         return cur;
-    }
+   }
 
     //Get 1 Data By ID
     public Cursor oneData(Long id){
@@ -111,5 +111,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // and returning our array list.
         cursorCourses.close();
         return courseModalArrayList;
+    }
+
+    public Integer total(String status){
+        int fix = 0;
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery(
+                "SELECT SUM(Nominal) FROM CashFlow WHERE Status = \"" + status + "\" ", null);
+        if(cursor.moveToFirst()) {
+            fix = cursor.getInt(0);
+        }
+
+        return fix;
     }
 }

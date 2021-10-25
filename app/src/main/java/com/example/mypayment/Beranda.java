@@ -3,15 +3,22 @@ package com.example.mypayment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mypayment.javavlass.DatabaseHelper;
 
 public class Beranda extends AppCompatActivity implements View.OnClickListener{
 
+    private static final String MY_PREFS_NAME = "MyPrefName";
     ImageButton pemasukan, pengeluaran, cashFLow, pengaturan;
+    TextView pengeluaranText, pemasukanText;
+    DatabaseHelper dbHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +28,21 @@ public class Beranda extends AppCompatActivity implements View.OnClickListener{
         pengeluaran = findViewById(R.id.imageButtonPengeluran);
         cashFLow = findViewById(R.id.imageButtonCashFlow);
         pengaturan = findViewById(R.id.imageButtonSetting);
+        pemasukanText = findViewById(R.id.textViewPemasukan);
+        pengeluaranText = findViewById(R.id.textViewPengeluaran);
 
         pemasukan.setOnClickListener(this);
         pengeluaran.setOnClickListener(this);
         cashFLow.setOnClickListener(this);
         pengaturan.setOnClickListener(this);
+
+        dbHelp = new DatabaseHelper(this);
+
+        Integer totalPemasukkan = dbHelp.total("pemasukan");
+        Integer totalPengeluaran = dbHelp.total("pengeluaran");
+
+        pemasukanText.setText("Rp." + String.valueOf(totalPemasukkan));
+        pengeluaranText.setText("Rp." + String.valueOf(totalPengeluaran));
     }
 
     @Override

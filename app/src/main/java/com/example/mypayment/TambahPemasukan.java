@@ -26,6 +26,8 @@ public class TambahPemasukan extends AppCompatActivity {
 
     DatabaseHelper dbhelper;
 
+    public String pemasukanPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,8 @@ public class TambahPemasukan extends AppCompatActivity {
         });
 
 
+
+
     }
     public void tampilTanggal(){
         DatePickerFrag datePickerFragment = new DatePickerFrag();
@@ -76,22 +80,27 @@ public class TambahPemasukan extends AppCompatActivity {
         String prefUsername = prefs.getString("username", "No name defined"); //"No name defined" is the default value.
 
         String user = prefUsername;
-        int statusSt = 0 ;
-        String nominalSt = "[+] Rp" + nominal.getText().toString();
+        String status = "pemasukan";
+        String nominalSt = nominal.getText().toString();
         String keteranganSt = keterangan.getText().toString();
         String tanggal = tanggalView.getText().toString();
 
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.clm_user, user);
-        values.put(DatabaseHelper.clm_status, statusSt);
-        values.put(DatabaseHelper.clm_nominal, nominalSt);
+        values.put(DatabaseHelper.clm_status, status);
+        values.put(DatabaseHelper.clm_nominal, Integer.valueOf(nominalSt));
         values.put(DatabaseHelper.clm_keterangan, keteranganSt);
         values.put(DatabaseHelper.clm_tanggal, tanggal);
+
+        int hasilJumlah = Integer.parseInt(nominal.getText().toString()) ;
 
         if (tanggal.equals("") || nominalSt.equals("") || keteranganSt.equals("")) {
             Toast.makeText(TambahPemasukan.this, "Data Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
         } else {
             dbhelper.insertData(values);
+            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putString("countPemasukan",nominal.getText().toString());
+            editor.apply();
             Toast.makeText(TambahPemasukan.this, "Data Berhasil Tersimpan", Toast.LENGTH_SHORT).show();
             finish();
         }

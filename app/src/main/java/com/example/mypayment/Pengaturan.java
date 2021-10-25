@@ -2,6 +2,7 @@ package com.example.mypayment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +36,7 @@ public class Pengaturan extends AppCompatActivity {
                     editor.putString("username", "user");
                     editor.putString("password", passBaru.getText().toString());
                     editor.apply();
+                    startActivity(new Intent(Pengaturan.this, Beranda.class));
 
                 }else{
                     Toast.makeText(getBaseContext(), "Password tidak sama",Toast.LENGTH_SHORT).show();

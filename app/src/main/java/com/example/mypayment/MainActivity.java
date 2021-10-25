@@ -25,17 +25,6 @@ public class MainActivity extends AppCompatActivity {
         password    = findViewById(R.id.passwordId);
         loginButton = findViewById(R.id.button);
 
-//        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-//        String prefUsername = prefs.getString("username", "user"); //"No name defined" is the default value.
-//        String prefPassword = prefs.getString("password", "user"); //"No name defined" is the default value.
-
-//        if (prefPassword.equalsIgnoreCase("null") && prefUsername.equalsIgnoreCase("null")) {
-//            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-//            editor.putString("username", "user");
-//            editor.putString("password", "user");
-//            editor.apply();
-//        }
-//        System.out.println("this Share preference" + prefPassword);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

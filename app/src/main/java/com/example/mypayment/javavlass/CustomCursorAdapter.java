@@ -37,12 +37,14 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
         CourseModal modal = courseModalArrayList.get(position);
         if (modal.getStatus() == 0){
             holder.imageArrow.setImageResource(R.drawable.ic_baseline_arrow_back_24);
+            holder.nominal.setText("[+} Rp." + modal.getNominal());
         }else {
             holder.imageArrow.setImageResource(R.drawable.ic_baseline_arrow_forward_24);
+            holder.nominal.setText("[-} Rp." + modal.getNominal());
         }
-        holder.nominal.setText(modal.getNominal());
         holder.keterangan.setText(modal.getKeterangan());
         holder.tanggal.setText(modal.getTanggal());
+
 
     }
 
@@ -64,4 +66,5 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
 
         }
     }
+
 }
