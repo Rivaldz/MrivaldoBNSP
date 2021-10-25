@@ -74,7 +74,7 @@ public class TambahPengeluaran extends AppCompatActivity {
         String prefUsername = prefs.getString("username", "No name defined"); //"No name defined" is the default value.
 
         String user = prefUsername;
-        String statusSt = "pengeluaran";
+        int statusSt = 1;
         String nominalSt = nominal.getText().toString();
         String keteranganSt = keterangan.getText().toString();
         String tanggal = tanggalView.getText().toString();

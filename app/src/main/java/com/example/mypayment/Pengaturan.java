@@ -25,7 +25,7 @@ public class Pengaturan extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
 //        String prefUsername = prefs.getString("username", "No name defined"); //"No name defined" is the default value.
-        final String prefPassword = prefs.getString("password", "No name defined"); //"No name defined" is the default value.
+        final String prefPassword = prefs.getString("password", "user"); //"No name defined" is the default value.
 
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override

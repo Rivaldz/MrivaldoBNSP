@@ -76,7 +76,7 @@ public class TambahPemasukan extends AppCompatActivity {
         String prefUsername = prefs.getString("username", "No name defined"); //"No name defined" is the default value.
 
         String user = prefUsername;
-        String statusSt = "pemasukan";
+        int statusSt = 0 ;
         String nominalSt = nominal.getText().toString();
         String keteranganSt = keterangan.getText().toString();
         String tanggal = tanggalView.getText().toString();
