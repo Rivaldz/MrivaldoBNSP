@@ -35,7 +35,7 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CourseModal modal = courseModalArrayList.get(position);
-        if (modal.getStatus() == 0){
+        if (modal.getStatus().equalsIgnoreCase("pemasukan")){
             holder.imageArrow.setImageResource(R.drawable.ic_baseline_arrow_back_24);
             holder.nominal.setText("[+} Rp." + modal.getNominal());
         }else {

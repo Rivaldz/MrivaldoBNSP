@@ -2,10 +2,9 @@ package com.example.mypayment.javavlass;
 
 public class CourseModal {
 
-    private String nominal, keterangan, tanggal;
-    private int status;
+    private String nominal, keterangan, tanggal,status;
 
-    public CourseModal( int status, String nominal, String keterangan, String tanggal) {
+    public CourseModal( String  status, String nominal, String keterangan, String tanggal) {
         this.status = status;
         this.nominal = nominal;
         this.keterangan = keterangan;
@@ -13,11 +12,11 @@ public class CourseModal {
     }
 
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String  status) {
         this.status = status;
     }
 

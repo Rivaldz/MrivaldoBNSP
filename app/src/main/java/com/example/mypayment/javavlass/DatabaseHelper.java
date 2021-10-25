@@ -100,7 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursorCourses.moveToFirst()) {
             do {
                 // on below line we are adding the data from cursor to our array list.
-                courseModalArrayList.add(new CourseModal(cursorCourses.getInt(2),
+                courseModalArrayList.add(new CourseModal(cursorCourses.getString(2),
                         cursorCourses.getString(3),
                         cursorCourses.getString(4),
                         cursorCourses.getString(5)));
